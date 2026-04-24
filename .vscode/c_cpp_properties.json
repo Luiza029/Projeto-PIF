@@ -1,0 +1,13 @@
+{
+  "configurations": [
+    {
+      "name": "WSL",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "/usr/local/include"
+      ],
+      "compilerPath": "C:\\MinGW\\bin\\gcc.exe"
+    }
+  ],
+  "version": 4
+}
