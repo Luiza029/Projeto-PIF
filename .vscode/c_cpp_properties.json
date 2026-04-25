@@ -3,8 +3,7 @@
     {
       "name": "WSL",
       "includePath": [
-        "${workspaceFolder}/**",
-        "/usr/local/include"
+        "${workspaceFolder}/**"
       ],
       "compilerPath": "C:\\MinGW\\bin\\gcc.exe"
     }
