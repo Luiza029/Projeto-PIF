@@ -1,4 +1,4 @@
-#ifdef JOGADOR_H
+#ifndef JOGADOR_H
 #define JOGADOR_H
 #include "raylib.h"
 
