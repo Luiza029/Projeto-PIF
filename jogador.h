@@ -5,18 +5,19 @@
 typedef struct jogador{
     float x; 
     float y; 
-    float velocidade;
+    float velocidadeY; // muda
+    float velocidadeX; // igual
     int gravidade; 
     int vivo;
+    Rectangle hitbox; // funcao do raylib, ele guarda x, y, altura e largura
     Color cor;  
 } Jogador;
 
 // declaracao das funcoes
-
 Jogador* criarJogador(float x, float y); 
-void atualizarJogador(Jogador* j); 
+void atualizarJogador(Jogador* j, float delta); // com o delta o movimento vai ficar igual para todos 
 void inverterGravidade(Jogador* j); 
-void desenharJogador(Jogador* j);
-void destruitJogador(Jogador* j); // libera a memoria alocada para o jogador
+void desenharJogador(const Jogador* j);
+void destruirJogador(Jogador* j); // libera a memoria alocada para o jogador
 
 #endif
