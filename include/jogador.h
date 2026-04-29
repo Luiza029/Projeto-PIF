@@ -2,7 +2,7 @@
 #define JOGADOR_H
 #include "raylib.h"
 
-typedef struct jogador{
+typedef struct Jogador{
     float x; 
     float y; 
     float velocidadeY; // muda
