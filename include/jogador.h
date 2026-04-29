@@ -15,9 +15,9 @@ typedef struct Jogador{
 
 // declaracao das funcoes
 Jogador* criarJogador(float x, float y); 
-void atualizarJogador(Jogador* j, float delta); // com o delta o movimento vai ficar igual para todos 
-void inverterGravidade(Jogador* j); 
-void sprite_Jogador(const Jogador* j);
-void destruirJogador(Jogador* j); // libera a memoria alocada para o jogador
+void atualizarJogador(Jogador*, float delta); // com o delta o movimento vai ficar igual para todos 
+void inverterGravidade(Jogador*); 
+void sprite_Jogador(const Jogador*);
+void destruirJogador(Jogador*); // libera a memoria alocada para o jogador
 
 #endif
