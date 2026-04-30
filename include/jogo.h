@@ -5,15 +5,15 @@
 #include "obstaculo.h"
 #include "colisao.h"
 
-typedef struct Jogo{ //Criação da struct para funcionalidades do jogo
+typedef struct Jogo{ 
     Jogador *jogador;
     Obstaculo *lista;
     int estado;
 }Jogo;
 
-void iniciar_jogo (Jogo*); // Função que ao ser rodada, inicia todos os comandos que serão executados 
-void atualizar_jogo (Jogo*); // É o loop que atualizará o jogo a cada frame 
-void sprites_jogo (Jogo*); // Função que vai adicionar todos os tipos de sprites na tela
-void fechar_jogo (Jogo*); // Fecha a tela do jogo e apaga os arquivos para evitar lixo de memória e bugs
+void iniciar_jogo (Jogo*); 
+void atualizar_jogo (Jogo*);  
+void sprites_jogo (Jogo*);
+void fechar_jogo (Jogo*); 
 
 #endif
