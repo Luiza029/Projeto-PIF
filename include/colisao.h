@@ -14,6 +14,7 @@ typedef struct Colidivel {
 Colidivel* criar_colidivel(float x, float y, float altura, float largura, int tipo); 
 int houve_colisao(Jogador*, Colidivel*); 
 void tipo_de_colisao(Jogador*, Colidivel*); 
-void sprite_colidivel(Colidivel*); 
+void sprite_colidivel(Colidivel*);
+void sumir_colidivel(Colidivel*);
 
 #endif
