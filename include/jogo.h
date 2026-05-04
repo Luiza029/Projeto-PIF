@@ -1,14 +1,19 @@
 #ifndef JOGO_H
 #define JOGO_H
+#define LINHA 10
+#define COLUNA 50
+#define TAMANHO_BLOCO 32
 #include "raylib.h"
 #include "jogador.h"
-#include "obstaculo.h"
-#include "colisao.h"
+
+typedef enum {MENU, JOGANDO, GAME_OVER} EstadoJogo;
 
 typedef struct Jogo{ 
     Jogador *jogador;
-    Obstaculo *lista;
-    int estado;
+    int mapa [LINHA][COLUNA];
+    EstadoJogo estado;
+    float offset; // deslocamento do mapa em pixels
+    float velocidade; // velocidade que o mapa se move para a esquerda
 }Jogo;
 
 void iniciar_jogo (Jogo*); 
