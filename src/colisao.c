@@ -1,54 +1,49 @@
 #include "colisao.h"
 #include <stdlib.h>
 
-int houve_colisao(Jogador* j, Jogo* m){
-    for(int l=0; l<LINHA; l++){
-        for(int c=0; c<COLUNA; c++){
-            
-            int x = (c * TAMANHO_BLOCO) - m->offset;
-            int y = l * TAMANHO_BLOCO;
+Colidivel* criar_colidivel(float x, float y, float altura, float largura, int tipo){
+    Colidivel *colid = malloc(sizeof(Colidivel));
 
-            Rectangle bloco;
-            bloco.x = x;
-            bloco.y = y;
-            bloco.width = TAMANHO_BLOCO;
-            bloco.height = TAMANHO_BLOCO;
+    colid -> hitbox.x = x;
+    colid -> hitbox.y = y;
+    colid -> hitbox.height = altura;
+    colid -> hitbox.width = largura;
+    colid -> tipo = tipo;
 
-            if(m->mapa[l][c] == 1){
-                if(CheckCollisionRecs(j->hitbox, bloco) == 1){
-                    tipo_de_colisao(j , l);
-                    return 1;
-                }
-
-            }
-            
-            else if(m->mapa[l][c] == 2){
-                if(CheckCollisionRecs(j->hitbox, bloco) == 1){
-                    tipo_de_colisao(j , l);
-                    return 1;
-                }
-                
-            }
-        }
-    }
-    
-    return 0;
+    return colid;
 }
 
-void tipo_de_colisao(Jogador* j, int l){
-    if(l == 0){
-        j->velocidadeY = 0;
-        j->y = 1 * TAMANHO_BLOCO;
-        j->hitbox.y = j->y;
-    }
+int houve_colisao(Jogador* j, Colidivel* c){
 
-    else if(l == LINHA - 1){
-        j->velocidadeY = 0;
-        j->y = (LINHA - 2) * TAMANHO_BLOCO;
-        j->hitbox.y = j->y;
-    }
+    return CheckCollisionRecs(j->hitbox, c->hitbox);
+}
 
-    else{
-        j->vivo = 0;
+void tipo_de_colisao(Jogador* j, Colidivel* c){
+
+    switch (c->tipo){
+        case 1: //chão
+            j->velocidadeY = 0;
+            break;
+        case 2: //teto
+            j->velocidadeY = 0;
+            break;
+        case 3: //parede
+            j->vivo = 0;
+            break;
+        case 4: //buraco
+            j->vivo = 0;
+            break;
+        default:
+            break;
     }
+}
+
+void sprite_colidivel(Colidivel* c){
+
+    DrawRectangleRec(c->hitbox, RED);
+}
+
+void sumir_colidivel(Colidivel* c){
+    free(c);
+    c = NULL;
 }
