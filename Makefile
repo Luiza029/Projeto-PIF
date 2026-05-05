@@ -1,6 +1,6 @@
 CC = gcc #compilador sendo usado
 CFLAGS = -Wall -Wextra -Iinclude #flags de compilação
-LIBS = -lraylib -lm -ldl -lpthread # Bibliotecas a serem usadas
+LIBS = -lraylib -lm -ldl -lpthread -lX11 -lGL -L/usr/local/lib
 
 SRC = $(wildcard src/*.c) # {ega todos os arquivos .c da posta src/ 
 OUT = build/jogo # O caminho final

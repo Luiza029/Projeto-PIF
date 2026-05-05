@@ -2,8 +2,6 @@
 #include <stdlib.h>
 
 int houve_colisao(Jogador* j, Jogo* m){
-
-    
     for(int l=0; l<LINHA; l++){
         for(int c=0; c<COLUNA; c++){
             

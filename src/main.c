@@ -1,16 +1,19 @@
-#include "raylib.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include "jogo.h"
 
-int main(void) {
-    InitWindow(800, 600, "Meu Jogo");
-    SetTargetFPS(60);
+int main(){
+    srand(time(NULL));
+    
+    Jogo j;
+    iniciar_jogo(&j);
 
-    while (!WindowShouldClose()) {
-        BeginDrawing();
-            ClearBackground(BLACK);
-            DrawText("Olá, mundo!", 300, 280, 20, WHITE);
-        EndDrawing();
+    while(!WindowShouldClose()){
+        atualizar_jogo(&j);
+        sprites_jogo(&j);
     }
 
-    CloseWindow();
+    fechar_jogo(&j);
     return 0;
 }

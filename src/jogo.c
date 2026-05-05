@@ -5,7 +5,7 @@
 
 void iniciar_jogo(Jogo* j){
     InitWindow(800, 600, "Projeto-PIF"); 
-    SetWindowFullscreen(1);
+    ToggleFullscreen();
     j ->estado = JOGANDO; 
     j -> jogador = criarJogador(100, (LINHA - 1) * TAMANHO_BLOCO, 50, 50);
     j -> offset = 0;
