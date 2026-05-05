@@ -3,10 +3,8 @@
 #include "raylib.h"
 
 typedef struct Jogador{
-    float x; 
     float y; 
-    float velocidadeY; 
-    float velocidadeX; 
+    float velocidadeY;  
     int gravidade; 
     int vivo;
     Rectangle hitbox; 

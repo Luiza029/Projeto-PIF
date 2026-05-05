@@ -5,7 +5,6 @@
 
 //Criamos a struct que vai determinar a geração de obstáculos na tela
 typedef struct Obstaculo{ 
-    Colidivel hitbox;
     Obstaculo *proximo;
     float velocidadeX;
     Color cor;

@@ -4,17 +4,29 @@
 #include "ranking.h"
 
 void salvar_pontos(Ranking* r){
-    FILE* pontuacao = fopen("ranking.txt", "w");
-    fprintf(pontuacao, "%s %d", r->nome, r->pontos);
-    fclose(pontuacao);
+    FILE* pontuacao = fopen("ranking.txt", "a");
+
+    if(pontuacao == NULL){
+        printf("Arquivo nao existe!");
+    } else{
+        fprintf(pontuacao, "%s %d", r->nome, r->pontos);
+        fclose(pontuacao);
+    }
 }
 
 Ranking* carregar_pontos(){
     Ranking* arquivo = (Ranking*) malloc(sizeof(Ranking));
     FILE* pontuacao = fopen("ranking.txt", "r");
-    fscanf(pontuacao, "%s %d", arquivo->nome, &arquivo->pontos);
-    fclose(pontuacao);
 
+    if(pontuacao == NULL){
+        printf("Arquivo nao existe");
+        free(arquivo);
+
+        return NULL;
+    } else{
+        fscanf(pontuacao, "%s %d", arquivo->nome, &arquivo->pontos);
+        fclose(pontuacao);
+    }
     return arquivo;
 }
 

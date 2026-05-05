@@ -6,10 +6,8 @@
 Jogador* criarJogador(float x, float y, float altura, float largura){
     Jogador* j = malloc(sizeof(Jogador));
 
-    j -> x = x;
     j -> y = y;
-    j -> velocidadeX = 500; // valor provisorio
-    j -> velocidadeY = 500; // valor provisorio
+    j -> velocidadeY = 0; 
     j -> gravidade = 1;
     j -> vivo = 1;
     j -> hitbox = (Rectangle){x, y, largura, altura};
@@ -28,11 +26,9 @@ void atualizarJogador(Jogador* j, float delta){
     }
     
     // a nova posicao sera: Posicao atual + a velocidade multiplicada pelo delta
-    j -> x = j -> x + j -> velocidadeX * delta;
     j -> y = j -> y + j -> velocidadeY * delta;
 
     // atualiza a hitbox
-    j -> hitbox.x = j -> x;
     j -> hitbox.y = j -> y;
 }
 
@@ -46,7 +42,7 @@ void inverterGravidade(Jogador* j){
     }
 }
 
-void sprite_jogador(const Jogador* j){
+void sprite_Jogador(const Jogador* j){
     DrawRectangleRec(j -> hitbox, j -> cor); // colocar uma imagem futuramente
 }
 
