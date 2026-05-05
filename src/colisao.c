@@ -38,10 +38,14 @@ int houve_colisao(Jogador* j, Jogo* m){
 void tipo_de_colisao(Jogador* j, int l){
     if(l == 0){
         j->velocidadeY = 0;
+        j->y = 1 * TAMANHO_BLOCO;
+        j->hitbox.y = j->y;
     }
 
     else if(l == LINHA - 1){
         j->velocidadeY = 0;
+        j->y = (LINHA - 2) * TAMANHO_BLOCO;
+        j->hitbox.y = j->y;
     }
 
     else{

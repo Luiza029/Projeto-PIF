@@ -2,12 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include "jogo.h"
+#include "colisao.h"
+#include "jogador.h"
 
 void iniciar_jogo(Jogo* j){
     InitWindow(800, 600, "Projeto-PIF"); 
     ToggleFullscreen();
     j ->estado = JOGANDO; 
-    j -> jogador = criarJogador(100, (LINHA - 1) * TAMANHO_BLOCO, 50, 50);
+    j->jogador = criarJogador(100, (LINHA - 2) * TAMANHO_BLOCO, 50, 50);
     j -> offset = 0;
     j ->velocidade = 200;
 
@@ -31,27 +33,36 @@ void iniciar_jogo(Jogo* j){
 void atualizar_jogo(Jogo* j){
     float delta = GetFrameTime(); // GetFrameTime, retorna o tempo do ultimo frame redenrizado, com isso o delta recebe esse tempo 
     atualizarJogador(j->jogador, delta); // manda para a funcao de atualizar jogador (aquele para saber se ele cai para cima ou para baixo)
+
+    if(IsKeyPressed(KEY_SPACE) || IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+        inverterGravidade(j->jogador);
+    }
+
+    houve_colisao(j->jogador, j);
     
     j->offset += j->velocidade *delta; 
 
     if(j->offset >= TAMANHO_BLOCO){
         j->offset = 0;
         
+        int tem_obstaculo = (rand() % 4 == 0);
+        int abertura = rand() % (LINHA - 4) + 2;
+
         for(int l=0; l<LINHA; l++){
             for(int c=0; c<COLUNA - 1; c++){
                 j->mapa[l][c] = j->mapa[l][c+1];
             }
 
-            if(l == 0){
+            if(l == 0 || l == LINHA - 1){
                 j->mapa[l][COLUNA - 1] = 1;
             }
 
-            else if(l == LINHA - 1){
+            else if(tem_obstaculo && l != abertura){
                 j->mapa[l][COLUNA - 1] = 1;
             }
 
             else{
-                j->mapa[l][COLUNA - 1] = rand() % 2;
+                j->mapa[l][COLUNA - 1] = tem_obstaculo ? 1 : 0;
             }
         }
     }

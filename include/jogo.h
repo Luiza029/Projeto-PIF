@@ -2,7 +2,7 @@
 #define JOGO_H
 #define LINHA 10
 #define COLUNA 50
-#define TAMANHO_BLOCO 32
+#define TAMANHO_BLOCO 60
 #include "raylib.h"
 #include "jogador.h"
 
