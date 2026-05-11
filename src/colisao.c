@@ -1,4 +1,6 @@
 #include "colisao.h"
+#include "chunk.h"
+#include "jogo.h"
 #include <stdlib.h>
 
 Colidivel* criar_colidivel(float x, float y, float altura, float largura, int tipo){
@@ -13,29 +15,57 @@ Colidivel* criar_colidivel(float x, float y, float altura, float largura, int ti
     return colid;
 }
 
-int houve_colisao(Jogador* j, Colidivel* c){
+int houve_colisao(Jogador* j, Jogo *jogo){
+    int chunk_index = 0;
+    Chunk *atual = jogo ->chunks;
 
-    return CheckCollisionRecs(j->hitbox, c->hitbox);
+    while(atual){
+        for(int l=0; l<CHUNK_ROWS; l++){
+            for(int c=0; c<CHUNK_COLS; c++){
+                if(atual->mapa[l][c] == 0){
+                    continue;
+                }
+
+                int x = (chunk_index *CHUNK_COLS + c) * TAMANHO_BLOCO - (int)jogo->offset;
+                int y = l *TAMANHO_BLOCO;
+
+                Rectangle bloco = {x, y, TAMANHO_BLOCO, TAMANHO_BLOCO};
+
+                if(CheckCollisionRecs(j->hitbox, bloco)){
+                    if(atual->mapa[l][c] == 2){
+                        j->vivo = 0;
+                    } else{
+                        tipo_de_colisao(j, l);
+                    }
+
+                    return 1;
+                }
+            }
+        }
+
+        chunk_index++;
+        atual = atual ->proximo;
+    }
+
+    return 0;
 }
 
-void tipo_de_colisao(Jogador* j, Colidivel* c){
-
-    switch (c->tipo){
-        case 1: //chão
-            j->velocidadeY = 0;
-            break;
-        case 2: //teto
-            j->velocidadeY = 0;
-            break;
-        case 3: //parede
-            j->vivo = 0;
-            break;
-        case 4: //buraco
-            j->vivo = 0;
-            break;
-        default:
-            break;
+void tipo_de_colisao(Jogador* j, int l){
+    if(l == 0){
+        j->velocidadeY = 0;
+        j->y = 1 * TAMANHO_BLOCO;
     }
+
+    else if(l == CHUNK_ROWS - 1){
+        j->velocidadeY = 0;
+        j->y = (CHUNK_ROWS - 2) * TAMANHO_BLOCO;
+    }
+
+    else{
+        j->vivo = 0;
+    }
+
+    j->hitbox.y = j->y;
 }
 
 void sprite_colidivel(Colidivel* c){

@@ -2,6 +2,7 @@
 #include "time.h" 
 #include "raymath.h"
 #include "animacao.h"
+#include "jogo.h"
 
 //Constantes usadas para tamanho da tela
 const int screenWidth = 600;
@@ -21,6 +22,8 @@ AnimacaoSprite* _AnimacaoAtual;
 void AtualizarFrameCriado(void);
 
 int main(void) {
+
+    Jogo j;
 
     srand(time(0));
 
