@@ -45,7 +45,7 @@ Obstaculo *remover_obstaculo (Obstaculo* lista, Obstaculo* obstaculo){
         Obstaculo* tempo = atual->proximo;
         apagar_obstaculo(atual);
         return tempo;
-    }else if(anterior != NULL){
+    }else{
         anterior->proximo = atual->proximo;
         apagar_obstaculo(atual);
         return lista;

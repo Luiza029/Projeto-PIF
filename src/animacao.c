@@ -30,8 +30,11 @@ void PararAnimacaoSprite(AnimacaoSprite animacaosprite){
     free(animacaosprite.retangulos);
 }
 
-void DesenhaAnimacaoSpritePro(AnimacaoSprite animacao, Rectangle dest, Vector2 origin, float rotation, Color tint){
-    int indice = (int)(GetTime() * animacao.fps) % animacao.larguraret;
-    Rectangle source = animacao.retangulos[indice];
-    DrawTexturePro(animacao.atlas, source, dest, origin, rotation, tint);
+void DesenhaAnimacaoSpritePro(AnimacaoSprite* animacao, Rectangle dest, Vector2 origin, float rotation, Color tint, int pausado){
+    if(!pausado){
+        animacao->indiceAtual = (int)(GetTime() * animacao->fps) % animacao->larguraret;
+    }
+    Rectangle source = animacao->retangulos[animacao->indiceAtual];
+    source.width = -source.width;
+    DrawTexturePro(animacao->atlas, source, dest, origin, rotation, tint);
 }
