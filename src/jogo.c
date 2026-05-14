@@ -89,7 +89,7 @@ void sprite_jogo(Jogo *j){
                     int y = l * TAMANHO_BLOCO;
 
                     if(x > -TAMANHO_BLOCO && x < GetScreenWidth()){
-                        if(atual->mapa[l][c == 1]){
+                        if(atual->mapa[l][c] == 1){
                             DrawRectangle(x, y, TAMANHO_BLOCO, TAMANHO_BLOCO, GRAY); // chao / teto
                         }
 
