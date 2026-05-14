@@ -27,8 +27,6 @@ int main(void) {
 
     srand(time(0));
 
-    InitWindow(screenWidth, screenHeigth, "Meu Jogo");
-
     _TexturaIdle = LoadTexture("assets/Sprites/IDLE.png");
     _TexturaRun = LoadTexture("assets/Sprites/RUN.png");
     _TexturaPulo = LoadTexture("assets/Sprites/RUNNING JUMP.png");
@@ -69,8 +67,22 @@ int main(void) {
 
     _AnimacaoAtual = &_AnimacaoIdle;
 
+    iniciar_jogo(&j);
+
     while (!WindowShouldClose()) {
-        AtualizarFrameCriado();
+        if(j.estado == JOGANDO){
+            atualizar_jogo(&j);
+            sprite_jogo(&j);
+        }
+
+        else if(j.estado == GAME_OVER){
+            sprite_game_over(&j);
+
+            if(IsKeyPressed(KEY_ENTER)){
+                fechar_jogo(&j);
+                iniciar_jogo(&j);
+            }
+        } 
     }
 
     fechar_jogo(&j);
@@ -79,7 +91,7 @@ int main(void) {
 
 void AtualizarFrameCriado(void){
 
-    if (IsKeyPressed(KEY_SPACE)){
+    if (IsKeyPressed(KEY_LEFT_SHIFT)){
         _AnimacaoAtual = &_AnimacaoRun;
     }
 

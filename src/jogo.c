@@ -25,11 +25,13 @@ static void remover_primeira_chunk(Jogo *j){
     if(!j->chunks){
         return;
     }
-
     Chunk *removida = j->chunks;
+
     j->chunks = j->chunks->proximo;
+
     destruir_chunk(removida);
-    j->chunks--;
+    
+    j->num_chunks--;
 }
 
 void iniciar_jogo(Jogo *j){
@@ -60,9 +62,15 @@ void atualizar_jogo(Jogo *j){
 
     houve_colisao(j->jogador, j);
 
+    if(!j->jogador->vivo){
+        j->estado = GAME_OVER;
+        return;
+    }
+
     j->offset += j->velocidade * delta;
 
     float largura_chunk = CHUNK_COLS * TAMANHO_BLOCO;
+
     if(j->offset >= largura_chunk){
         j->offset -= largura_chunk;
         remover_primeira_chunk(j);
@@ -98,13 +106,20 @@ void sprite_jogo(Jogo *j){
                         }
                     }
                 }
-
-                chunk_index++;
-                atual = atual ->proximo;
             }
+            chunk_index++;
+            atual = atual ->proximo;
         }
 
         sprite_Jogador(j->jogador);
+    EndDrawing();
+}
+
+void sprite_game_over(Jogo*){
+    BeginDrawing();
+        ClearBackground(BLACK);
+        DrawText("GAME OVER", GetScreenWidth()/2 - 150, GetScreenHeight()/2 - 50, 60, RED);
+        DrawText("Pressione ENTER para reiniciar", GetScreenWidth()/2 - 200, GetScreenHeight()/2 + 30, 25, WHITE);
     EndDrawing();
 }
 

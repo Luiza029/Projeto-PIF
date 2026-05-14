@@ -21,7 +21,8 @@ typedef struct Jogo{
 
 void iniciar_jogo (Jogo*); 
 void atualizar_jogo (Jogo*);  
-void sprites_jogo (Jogo*);
+void sprite_jogo (Jogo*);
+void sprite_game_over(Jogo*);
 void fechar_jogo (Jogo*); 
 
 #endif

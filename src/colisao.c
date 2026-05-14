@@ -35,7 +35,7 @@ int houve_colisao(Jogador* j, Jogo *jogo){
                     if(atual->mapa[l][c] == 2){
                         j->vivo = 0;
                     } else{
-                        tipo_de_colisao(j, l);
+                        tipo_de_colisao(j, l, bloco);
                     }
 
                     return 1;
@@ -50,19 +50,17 @@ int houve_colisao(Jogador* j, Jogo *jogo){
     return 0;
 }
 
-void tipo_de_colisao(Jogador* j, int l){
-    if(l == 0){
+void tipo_de_colisao(Jogador* j, int l, Rectangle bloco){
+    (void) bloco;
+
+    if(j->velocidadeY > 0){
         j->velocidadeY = 0;
-        j->y = 1 * TAMANHO_BLOCO;
+        j->y = l * TAMANHO_BLOCO - j->hitbox.height;
     }
 
-    else if(l == CHUNK_ROWS - 1){
+    else if(j->velocidadeY < 0){
         j->velocidadeY = 0;
-        j->y = (CHUNK_ROWS - 2) * TAMANHO_BLOCO;
-    }
-
-    else{
-        j->vivo = 0;
+        j->y = (l + 1) * TAMANHO_BLOCO;
     }
 
     j->hitbox.y = j->y;

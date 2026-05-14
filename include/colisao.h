@@ -12,7 +12,7 @@ struct Jogo;
 
 Colidivel* criar_colidivel(float x, float y, float altura, float largura, int tipo); 
 int houve_colisao(Jogador*, struct Jogo*); 
-void tipo_de_colisao(Jogador*, int l); 
+void tipo_de_colisao(Jogador*, int l, Rectangle bloco); 
 void sprite_colidivel(Colidivel*); 
 void sprite_colidivel(Colidivel*);
 void sumir_colidivel(Colidivel*);
