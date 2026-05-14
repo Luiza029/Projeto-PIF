@@ -81,6 +81,10 @@ void atualizar_jogo(Jogo *j){
     if(j->velocidade > 500){
         j->velocidade = 500;
     }
+
+    if(j->jogador->y > GetScreenHeight() || j->jogador->y + j->jogador->hitbox.height < 0){
+        j->jogador->vivo = 0;
+    }
 }
 
 void sprite_jogo(Jogo *j){
@@ -121,6 +125,31 @@ void sprite_game_over(Jogo*){
         DrawText("GAME OVER", GetScreenWidth()/2 - 150, GetScreenHeight()/2 - 50, 60, RED);
         DrawText("Pressione ENTER para reiniciar", GetScreenWidth()/2 - 200, GetScreenHeight()/2 + 30, 25, WHITE);
     EndDrawing();
+}
+
+void reiniciar_jogo(Jogo *j){
+    Chunk *atual = j->chunks;
+
+    while(atual){
+        Chunk *next = atual->proximo;
+        destruir_chunk(atual);
+        atual = next;
+    }
+
+    free(j->jogador);
+
+    j->estado = JOGANDO;
+    j->jogador = criarJogador(100, (LINHA -2) * TAMANHO_BLOCO, 50, 50);
+    j->offset = 0;
+    j->velocidade = 200;
+    j->chunks = NULL;
+    j->num_chunks = 0;
+
+    adicionar_chunks(j, 0);
+
+    for(int i=0; i<3; i++){
+        adicionar_chunks(j, rand() % 20);
+    }
 }
 
 void fechar_jogo(Jogo *j){

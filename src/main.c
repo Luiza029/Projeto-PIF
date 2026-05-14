@@ -79,8 +79,7 @@ int main(void) {
             sprite_game_over(&j);
 
             if(IsKeyPressed(KEY_ENTER)){
-                fechar_jogo(&j);
-                iniciar_jogo(&j);
+                reiniciar_jogo(&j);
             }
         } 
     }

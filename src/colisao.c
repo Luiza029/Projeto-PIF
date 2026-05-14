@@ -63,6 +63,10 @@ void tipo_de_colisao(Jogador* j, int l, Rectangle bloco){
         j->y = (l + 1) * TAMANHO_BLOCO;
     }
 
+    else{
+        j->vivo = 0;
+    }
+
     j->hitbox.y = j->y;
 }
 
