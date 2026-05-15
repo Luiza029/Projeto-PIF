@@ -69,7 +69,7 @@ int main(void) {
 
     iniciar_jogo(&j);
 
-    while (!WindowShouldClose()) {
+    while(!WindowShouldClose()){
         if(j.estado == JOGANDO){
             atualizar_jogo(&j);
             sprite_jogo(&j);
@@ -77,11 +77,25 @@ int main(void) {
 
         else if(j.estado == GAME_OVER){
             sprite_game_over(&j);
+            if(IsKeyPressed(KEY_ENTER)){
+                inserir_pontuacao(j.ranking, &j.num_ranking, j.nome_jogador, j.pontos);
+                salvar_pontos(j.ranking, j.num_ranking);
+                j.estado = RANKING;
+            }
+        }
+
+        else if(j.estado == RANKING){
+            BeginDrawing();
+                ClearBackground(BLACK);
+                mostrar_na_tela(j.ranking, j.num_ranking);
+                DrawText("ENTER para jogar de novo", GetScreenWidth()/2 - 180, 500, 25, GRAY);
+            EndDrawing();
 
             if(IsKeyPressed(KEY_ENTER)){
                 reiniciar_jogo(&j);
+                carregar_pontos(j.ranking, &j.num_ranking);
             }
-        } 
+        }
     }
 
     fechar_jogo(&j);

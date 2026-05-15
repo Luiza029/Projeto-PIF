@@ -7,8 +7,9 @@
 #include "jogador.h"
 #include "jogador.h"
 #include "chunk.h"
+#include "ranking.h"
 
-typedef enum {MENU, JOGANDO, GAME_OVER} EstadoJogo;
+typedef enum {MENU, JOGANDO, GAME_OVER, RANKING} EstadoJogo;
 
 typedef struct Jogo{ 
     Jogador *jogador;
@@ -17,6 +18,10 @@ typedef struct Jogo{
     float offset;
     float velocidade;
     int num_chunks;
+    int pontos;
+    Ranking ranking[MAX_RANKING];
+    int num_ranking;
+    char nome_jogador[50];
 }Jogo;
 
 void iniciar_jogo (Jogo*); 

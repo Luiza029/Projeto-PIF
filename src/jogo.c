@@ -56,6 +56,8 @@ void atualizar_jogo(Jogo *j){
     float delta = GetFrameTime();
     atualizarJogador(j->jogador, delta);
 
+    j->pontos += (int)(j->velocidade * delta);
+
     if(IsKeyPressed(KEY_SPACE) || IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
         inverterGravidade(j->jogador);
     }
@@ -116,6 +118,8 @@ void sprite_jogo(Jogo *j){
         }
 
         sprite_Jogador(j->jogador);
+
+        DrawText(TextFormat("Pontos: %d", j->pontos), 10, 10, 30, WHITE);
     EndDrawing();
 }
 
